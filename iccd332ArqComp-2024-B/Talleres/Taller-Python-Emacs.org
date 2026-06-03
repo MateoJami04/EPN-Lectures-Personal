@@ -4,9 +4,9 @@
 #+options: inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+options: tasks:t tex:t timestamp:t title:t toc:nil todo:t |:t
 #+title: Taller de Programación Literaria en Python con Emacs
-#+date: 2026-04-22
-#+author: NOMBRE ESTUDIANTE A, NOMBRE ESTUDIANTE B
-#+email: 
+#+date: 2026-06-02
+#+author: Jami Tonato Mateo Israel
+#+email: mateo.jami@epn.edu.ec
 #+language: spa
 #+select_tags: export
 #+exclude_tags: noexport
@@ -121,12 +121,27 @@ Escriba un programa que:
 
 #+begin_src python :results output :exports both
 # Escriba aquí su programa
+edad = 18
+promedio = 9.89
+nombre = "Mateo"
+print(edad,type(edad))
+print(promedio,type(promedio))
+print(nombre,type(nombre))
 # Debe usar variables: edad, promedio, nombre
 #+end_src
 
 #+RESULTS:
+: 18 <class 'int'>
+: 9.89 <class 'float'>
+: Mateo <class 'str'>
 
-Explique en 2 líneas qué diferencia observa entre ~int~, ~float~ y ~str~:
+Explique en 2 líneas qué diferencia observa entre ~int~, ~float~ y
+~str~:
+Para declarar una variable entera, no se debe colocar el '.' decimal,
+ya que si no, python lo va a tomar como un flotante y cuando se
+declara una variable tipo 'str' se debe colocar después del igual, la
+cadena entre comillas o comillas simples. De esta forma se diferencian
+los tres tipos de variables primitivas que pedía el ejercicio.
 
 ** Operaciones y expresiones
 Python permite realizar operaciones aritméticas como suma, producto, potencia y residuo.
@@ -138,11 +153,27 @@ Escriba un programa que:
 
 #+begin_src python :results output :exports both
 # Escriba aquí su programa
+# Primero se definen los números a y b
+a = 2
+b = 6
+# Imprimimos los parámetros solicitados
+print("Suma = ", a+b)
+print("Resta =", a-b)
+print("Multiplicación = ", a*b)
+print("División = ", a/b)
+print("Módulo = ", a%b)
 #+end_src
 
 #+RESULTS:
+: Suma =  8
+: Resta = -4
+: Multiplicación =  12
+: División =  0.3333333333333333
+: Módulo =  2
 
 Escriba una línea indicando para qué sirve el operador ~%~:
+El operador ~%~ sirve para obtener el módulo o residuo de un número,
+que es resultado de una división de enteros. 
 
 ** Listas
 Las listas permiten agrupar varios valores y recorrerlos. Las hojas de
@@ -158,11 +189,24 @@ Escriba un programa que:
 
 #+begin_src python :results output :exports both
 # Escriba aquí su programa
+# Primero definimos la lista
+numeros = [12,18,73,23,19]
+# Después operamos los items solicitados
+print("La lista es: ", numeros)
+print("El primer número es: ", numeros[0])
+print("El último número es: ", numeros[-1])
+print("La longitud de la lista es: ", len(numeros))
 #+end_src
 
 #+RESULTS:
+: La lista es:  [12, 18, 73, 23, 19]
+: El primer número es:  12
+: El último número es:  19
+: La longitud de la lista es:  5
 
 Explique en 1 o 2 líneas qué hace ~len()~:
+El método ~len()~ sirve para calcular la longitud, el tamaño o el
+número de elementos de una lista u objeto. 
 
 ** Bucles y condicionales
 Los bucles permiten repetir acciones y los condicionales permiten tomar decisiones según una condición lógica.
@@ -174,11 +218,33 @@ Escriba un programa que:
 
 #+begin_src python :results output :exports both
 # Escriba aquí su programa
+# Primero se va a recorrer los números del 1 al 10
+for i in range(1,11):
+    if i%2 == 0:
+        print("El número", i, "es par")
+    else:
+        print("El número", i, "es impar")
+#Aquí se termina el bloque for
 #+end_src
 
 #+RESULTS:
+#+begin_example
+El número 1 es impar
+El número 2 es par
+El número 3 es impar
+El número 4 es par
+El número 5 es impar
+El número 6 es par
+El número 7 es impar
+El número 8 es par
+El número 9 es impar
+El número 10 es par
+#+end_example
 
 Describa brevemente cómo usó ~if~ y el operador ~%~:
+El condicional ~if~ se uso para determinar si el número a comparar era
+par o impar con ayuda del módulo ~%~ para saber el residuo cuando se
+dividió para 2.
 
 ** Comprensión de listas
 La comprensión de listas es una manera concisa de crear listas en Python.
@@ -191,11 +257,24 @@ Escriba un programa que:
 
 #+begin_src python :results output :exports both
 # Escriba aquí su programa
+# Primero generamos la lista con los números del 1 al 10
+numeros = list(range(1,11))
+cuadrados = [x**2 for x in numeros]
+# Ahora imprimimos las listas
+print("La lista de números del 1 al 10 es: ", numeros)
+print("La lista de los cuadrados de la lista de números es: ", cuadrados)
 #+end_src
 
 #+RESULTS:
+: La lista de números del 1 al 10 es:  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+: La lista de los cuadrados de la lista de números es:  [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
 
-Explique en 2 líneas qué ventaja tiene una *list comprehension* frente a escribir varios ~append~:
+Explique en 2 líneas qué ventaja tiene una *list comprehension* frente
+a escribir varios ~append~:
+Cuando definimos una lista por comprensión, en esta se pueden tener
+varios elementos que se definen por la regla establecida, mientras que
+por notación o ~append~ se debe colocar manualmente los datos, lo que
+dificulta tener listas grandes o con valores que se relacionen entre sí.
 
 ** Funciones
 Las funciones permiten encapsular lógica y reutilizar código; son una parte básica y frecuente en resúmenes de Python.
@@ -208,11 +287,25 @@ Escriba un programa que:
 
 #+begin_src python :results output :exports both
 # Escriba aquí su programa
+# Vamos a definir la función cuadrado de x
+def cuadrado(x):
+    return x**2
+# Ahora vamos a probar la función con 3 valores
+print("El cuadrado de 4 es: ", cuadrado(4))
+print("El cuadrado de 8 es: ", cuadrado(8))
+print("El cuadrado de 5 es: ", cuadrado(5))
 #+end_src
 
 #+RESULTS:
+: El cuadrado de 4 es:  16
+: El cuadrado de 8 es:  64
+: El cuadrado de 5 es:  25
 
-Escriba en 2 líneas por qué las funciones ayudan a organizar programas:
+Escriba en 2 líneas por qué las funciones ayudan a organizar
+programas:
+Las funciones en la programación en general, ayudan a dividir grandes
+problemas en módulos o pasos mas pequeños y estructurales, por ello,
+su uso es de vital importancia en la resolución de problemas.
 
 ** Texto, matemáticas y código
 Una ventaja de la programación literaria es documentar una idea con texto y validarla con código ejecutable en el mismo archivo.[cite:4]
@@ -230,11 +323,30 @@ Escriba un programa que:
 
 #+begin_src python :results output :exports both
 # Escriba aquí su programa
+n = 10;
+# Primero se va a calcular la suma acumulada con un bucle
+sumaBucle = 0
+for i in range(1,n+1):
+    sumaBucle += i
+# Ahora vamos a calcular la suma acumulada con la fórmula
+sumaFormula = (n*(n+1))//2
+# Comparar e imprimir los resultados
+print("Resultado con bucle:", sumaBucle)
+print("Resultado con fórmula:", sumaFormula)
+print("¿Son iguales los resultados?:", sumaBucle == sumaFormula)
 #+end_src
 
 #+RESULTS:
+: Resultado con bucle: 55
+: Resultado con fórmula: 55
+: ¿Son iguales los resultados?: True
 
-Explique en 3 líneas cómo este ejemplo muestra la idea de programación literaria:
+Explique en 3 líneas cómo este ejemplo muestra la idea de programación
+literaria:
+Este ejemplo logra explicar muy bien la programación literaria porque
+se puede llegar a la soluciones matemáticas a través de la utilización
+de sus fórmulas y también con razonamientos propios con el uso de
+diferentes datos y estructuras en el código. 
 
 * Parte 2: Resolución de problemas sencillos
 En esta segunda parte ya no se explica el concepto paso a paso. Ahora debe crear los bloques de código resolviendo pequeños problemas. Se recomienda usar ~C-c '~ para editar cada bloque y ~C-c C-c~ para probar la solución.
@@ -244,76 +356,142 @@ Escriba un programa que lea una lista fija de calificaciones ~[7, 8, 10, 9, 6]~,
 
 #+begin_src python :results output :exports both
 # Escriba aquí su solución
+# Primero definimos la función que recibirá como parámetro una lista y calculará el promedio
+def calcularPromedio(lista):
+    suma = 0
+    for nota in lista:# Itera sobre los elementos de la lista, en este caso, notas
+        suma += nota
+    return suma / len(lista)
+
+# Creamos la lista y llamamos a la función
+calificaciones = [7, 8, 10, 9, 6]
+resultado = calcularPromedio(calificaciones)
+print("El promedio de calificaciones es:", resultado)
 #+end_src
 
 #+RESULTS:
+: El promedio de calificaciones es: 8.0
 
 ** Problema 2
 Escriba un programa que cuente cuántas vocales hay en la cadena ~"arquitectura"~.
 
 #+begin_src python :results output :exports both
 # Escriba aquí su solución
+# Primero definimos la lista y el contador
+cadena = "arquitectura"
+contadorVocales = 0
+#Después recorremos toda la cadena
+for letra in cadena:
+    # Comprobamos si la letra es una vocal
+    if letra in "aeiou": # Esta es una forma de representar todas las opciones posibles a comparar
+        contadorVocales += 1
+# Imprimimos el resultado
+print("El número total de vocales es:", contadorVocales)
 #+end_src
 
 #+RESULTS:
+: El número total de vocales es: 6
 
 ** Problema 3
 Escriba un programa que construya una lista con los números pares del 2 al 20.
 
 #+begin_src python :results output :exports both
 # Escriba aquí su solución
+# Definimos la lista con la condición dada
+numeros = list(range(2,21))
+pares = [x for x in numeros if x%2==0]
+print("La lista con los numeros pares entre el 2 al 20 es: ", pares)
 #+end_src
 
 #+RESULTS:
+: La lista con los numeros pares entre el 2 al 20 es:  [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
 
 ** Problema 4
 Escriba una función ~maximo_de_tres(a, b, c)~ que retorne el mayor de tres números y pruébela con un ejemplo.
 
 #+begin_src python :results output :exports both
 # Escriba aquí su solución
+# Definimos la función que calculará el máximo de 3 números
+def maximoDeTres(a,b,c):
+    return max(a,b,c)
+# Con el método max() de python, se calculará el maximo entre los
+# números o parámetros comparados.
+max = maximoDeTres(45,67,89)
+print("El máximo de los tres números es de: ", max)
 #+end_src
 
 #+RESULTS:
+: El máximo de los tres números es de:  89
 
 ** Problema 5
 Escriba un programa que imprima la tabla de multiplicar del 5, desde ~5 x 1~ hasta ~5 x 10~.
 
 #+begin_src python :results output :exports both
 # Escriba aquí su solución
+# Definimos la función que imprimirá la tabla de multiplicar de un número cualquiera
+def imprimirTabla(numeros, num):
+    for numero in numeros:
+        resultado = num*numero
+        print(num, " x ", numero, " = ", resultado)
+# Definir una lista con los números del 1 al 10
+numeros = list(range(1,11))
+imprimirTabla(numeros, 5)
 #+end_src
 
 #+RESULTS:
+#+begin_example
+5  x  1  =  5
+5  x  2  =  10
+5  x  3  =  15
+5  x  4  =  20
+5  x  5  =  25
+5  x  6  =  30
+5  x  7  =  35
+5  x  8  =  40
+5  x  9  =  45
+5  x  10  =  50
+#+end_example
 
 ** Problema 6
 Escriba un programa que determine si la palabra ~"reconocer"~ es palíndroma.
 
 #+begin_src python :results output :exports both
 # Escriba aquí su solución
+palabra = "reconocer"
+palabraInvertida = ""
+# Recorremos el texto desde el último carácter hasta el primero
+# range(inicio, fin, paso)
+# Empezamos en la posición (longitud - 1) y vamos restando 1 hasta llegar a 0
+for i in range(len(palabra) - 1, -1, -1):
+    palabraInvertida += palabra[i]
+# Condicional para verificar si la palabra original y la auxiliar son iguales
+if palabra == palabraInvertida:
+    print("La palabra '" + palabra + "' es palíndroma")
+else:
+    print("La palabra '" + palabra + "' no es palíndroma")
 #+end_src
 
 #+RESULTS:
-
-
+: La palabra 'reconocer' es palíndroma
 
 * Equipo de Trabajo
 Complete la información de los integrantes del grupo e indique el líder.
 
-|-----------------+-------------------------+-------------|
-| Nombre          | email                   | Rol         |
-|-----------------+-------------------------+-------------|
-|                 |                         | líder       |
-|                 |                         | colaborador |
-|                 |                         | colaborador |
-|-----------------+-------------------------+-------------|
+|--------------------------+-----------------------+-------|
+| Nombre                   | email                 | Rol   |
+|--------------------------+-----------------------+-------|
+| Jami Tonato Mateo Israel | mateo.jami@epn.edu.ec | líder |
+|                          |                       |       |
+|--------------------------+-----------------------+-------|
 
-* Verificación de Entregables [0%]
-- [ ] Parte 1 completada.
-- [ ] Parte 2 completada.
-- [ ] Cuestionario de 10 preguntas respondido en el aula virtual.
-- [ ] Uso de ~C-c '~ para editar bloques practicado.
-- [ ] Ejecución de bloques con ~C-c C-c~ verificada.
-- [ ] Archivo PDF generado con ~M-x org-latex-export-to-pdf~.
-- [ ] Entrega de archivo ~.org~ y ~.pdf~.
+* Verificación de Entregables [100%]
+- [X] Parte 1 completada.
+- [X] Parte 2 completada.
+- [X] Cuestionario de 10 preguntas respondido en el aula virtual.
+- [X] Uso de ~C-c '~ para editar bloques practicado.
+- [X] Ejecución de bloques con ~C-c C-c~ verificada.
+- [X] Archivo PDF generado con ~M-x org-latex-export-to-pdf~.
+- [X] Entrega de archivo ~.org~ y ~.pdf~.
 
 ** Problemas con la Tarea / Comentarios
 - Actividad no completada debido a:
