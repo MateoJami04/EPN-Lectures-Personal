@@ -4,9 +4,9 @@
 #+options: inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
 #+options: tasks:t tex:t timestamp:t title:t toc:t todo:t |:t
 #+title: Plantilla para Toma de Notas en Clase
-#+date: 2024-07-
-#+author: COLOQUE SU NOMBRE
-#+email: coloque.su.nombre@epn.edu.ec
+#+date: 2026-06-04
+#+author: Mateo.I Jami
+#+email: mateo.jami@epn.edu.ec
 #+language: Español
 #+select_tags: export
 #+exclude_tags: noexport
@@ -107,6 +107,15 @@ notas y una tercera para el resumen. Algo que no incluye la estrategia
 de Cornell es apuntar las tareas. Pero esto lo podemos aprovechar con
 Emacs ~TODO~.
 
+** Notas clase, comandos usados:
+- ~C-c-C-l~ Sirve para insertar un enlace y poder ponerle un nombre
+personalizado, que sea como guía del enlace.
+- ~M-x-: ispell-region~ Sirve para comprobar la ortografía de una
+  región seleccionada.
+- ~M-x: gpetel-menu~ Sirve para abrir el Copilot asociado a
+  gitHub. Pero este no se abre en modo agente, si no como la última
+  programación de la LLM.
+- Se debe terminar de configurar el Copilot para el emacs. 
 
 * TODO Mis Tareas [50%]
 - [X] Leer este documento
