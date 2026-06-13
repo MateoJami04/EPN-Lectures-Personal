@@ -5,9 +5,9 @@
 
 #+title: Latches y Flip-Flops
 #+subtitle: ICCD332 — Arquitectura de Computadores
-#+date: [Fecha de entrega]
-#+author: [Nombres de los integrantes del grupo]
-#+email: [Coloque el email de líder de grupo]
+#+date: 2026-06-11
+#+author: Echeverría Steven, Jami Mateo, Pérez Martín y Zúñiga Sebastián
+#+email: sebastian.zuniga@epn.edu.ec
 #+language: es
 #+select_tags: export
 #+exclude_tags: noexport
@@ -73,10 +73,11 @@
 :END:
 
 - *Integrantes:*
-  - [Nombre 1]
-  - [Nombre 2]
-  - [Nombre 3 — si aplica]
-- *Fecha:* [DD/MM/AAAA USE YASNIPPET dd C-TAB]
+  - Echeverría Steven
+  - Jami Mateo
+  - Pérez Martín
+  - Zúñiga Sebastián
+- *Fecha:* 2026-06-11
 - *Curso:* ICCD332 — Arquitectura de Computadores
 
 *** Fuente                                                             :BMCOL:
@@ -114,11 +115,13 @@
 :BEAMER_col: 0.55
 :END:
 
-- [Descripción breve: cómo se construye con 2 puertas NOR]
-- Estado SET:      $S=1,\,R=0 \;\Rightarrow\; Q=[?]$
-- Estado RESET:    $S=0,\,R=1 \;\Rightarrow\; Q=[?]$
-- Estado HOLD:     $S=0,\,R=0 \;\Rightarrow\; Q=[?]$
-- Estado \textcolor{red}{PROHIBIDO}: $S=1,\,R=1$
+- Este circuito secuencial se construye cruzando dos compuertas lógicas NOR, de manera que las salidas de cada compuerta se conecta a una de las entradas de la otra.
+- Posee dos entradas $S$ (set) y $R$ (reset) que se activan u operan con 1 lógico.
+- A su vez, tiene dos salidas $Q$ (la principal) y $Q'$ (su inverso) las cuales son complementarias, es decir, si una tiene 1 lógico, la otra tendrá 0, y viceversa.
+- Estado SET:      $S=1,\,R=0 \;\Rightarrow\; Q=[?]$ (Activa la salida)
+- Estado RESET:    $S=0,\,R=1 \;\Rightarrow\; Q=[?]$ (Limpia la salida)
+- Estado HOLD:     $S=0,\,R=0 \;\Rightarrow\; Q=[?]$ (Mantiene el estado anterior)
+- Estado \textcolor{red}{PROHIBIDO}: $S=1,\,R=1$. Es inválido porque provoca que tanto $Q$ como $Q'$ sean 0, lo que no tiene sentido al ser complementarios.
 
 *** Tabla de Verdad                                                    :BMCOL:
 :PROPERTIES:
@@ -126,16 +129,16 @@
 :END:
 
 # Reemplace [?] y [nombre] con los valores y nombres de estado correctos.
-| $S$ | $R$ | $Q$ | $\overline{Q}$ | Estado    |
-|-----+-----+-----+----------------+-----------|
-|  0  |  0  | [?] | [?]            | [nombre]  |
-|  0  |  1  | [?] | [?]            | [nombre]  |
-|  1  |  0  | [?] | [?]            | [nombre]  |
-|  1  |  1  | [?] | [?]            | Prohibido |
+| $S$ | $R$ | $Q$    | $\overline{Q}$ | Estado      |
+|-----+-----+--------+----------------+-------------|
+|   0 |   0 | $Q(t)$ | $\overline{Q}$ | Sin cambios |
+|   0 |   1 | 0      | 1              | Reset       |
+|   1 |   0 | 1      | 0              | Set         |
+|   1 |   1 | 0      | 0              | Prohibido   |
 
 ** Latch SR con Puertas NAND
 # INSTRUCCIÓN: Explique la variante NAND del Latch SR.
-#   - ¿Qué cambia respecto a la versión NOR? (lógica activa en bajo)
+#   - ¿Qué cambia respectdo a la versión NOR? (lógica activa en bajo)
 #   - Las entradas se notan S' y R' (activas en BAJO).
 #   - ¿Cuál es ahora la combinación PROHIBIDA?
 #   - Complete la tabla de verdad.
@@ -145,24 +148,23 @@
 :BEAMER_col: 0.55
 :END:
 
-- [Descripción breve: cómo se construye con 2 puertas NAND]
+- Este circuito secuencial sustituye las compuertas lógicas NOR por las NAND, pero mantiene la retroalimentación cruzada (salida de una conectada a la otra).
+- La diferencia principal con respecto al anterior es que se trabaja en bajo, es decir, $S$ y $R$ se activan con 0 lógico.
 - Entradas activas en \textcolor{blue}{bajo}:
   $\overline{S}$ y $\overline{R}$
-- Estado \textcolor{red}{PROHIBIDO}: $\overline{S}=[?],\;\overline{R}=[?]$
-- [¿Por qué la lógica se invierte respecto a NOR?]
+- Estado \textcolor{red}{PROHIBIDO}: $\overline{S}=[?],\;\overline{R}=[?]$. Fuerza a que ambas salidas sean 1 al mismo tiempo, lo que rompe la lógica de ser complementarios.
 
 *** Tabla de Verdad NAND                                               :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.45
 :END:
 
-| $\overline{S}$ | $\overline{R}$ | $Q$ | Estado    |
-|----------------+----------------+-----+-----------|
-| [?]            | [?]            | [?] | [nombre]  |
-| [?]            | [?]            | [?] | [nombre]  |
-| [?]            | [?]            | [?] | [nombre]  |
-| [?]            | [?]            | [?] | Prohibido |
-
+| $\overline{S}$ | $\overline{R}$ |    $Q$ | $\overline{Q}$ | Estado      |
+|----------------+----------------+--------+----------------+-------------|
+|              0 |              0 |      1 |              1 | Prohibido   |
+|              0 |              1 |      1 |              0 | Set         |
+|              1 |              0 |      0 |              1 | Reset       |
+|              1 |              1 | $Q(t)$ | $\overline{Q}$ | Sin cambios |
 ** Latch SR con Habilitación
 # INSTRUCCIÓN: Explique qué agrega la señal de habilitación (Enable, EN) al Latch SR.
 #   - Cuando EN=0, las entradas S y R no tienen efecto: ¿por qué?
@@ -170,28 +172,41 @@
 #   - ¿Qué puertas adicionales se agregan al circuito?
 #   - Complete la tabla de verdad ampliada con la columna EN.
 
+
 *** Funcionamiento                                                     :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.55
 :END:
 
-- Se agrega una señal de control: *Enable* ($EN$)
-- $EN=0$: entradas bloqueadas → $Q(t+1)=[?]$
-- $EN=1$: funciona como Latch SR normal
-- [¿Qué tipo de puertas adicionales se usan para implementar EN?]
+La señal de habilitación enable (EN) indica cuándo
+las entradas S y R modifican la salida Q, de modo que no exista cambio
+alguno en Q si enable permanece inactiva. Es decir, si EN = 0, no hay
+cambios en el circuito aun cuando las señales entrantes se alteren.
 
+Por el contrario, cuando EN = 1, el latch SR funciona normalmente dado
+que el circuito se encuentra habilitado.
+
+- Se agrega una señal de control: *Enable* ($EN$)
+- $EN=0$: entradas bloqueadas → $Q(t+1)= Q(t)$
+- $EN=1$: funciona como Latch SR normal
+- Aparte de las compuertas NOR o NAND, integradas en el latch S-R, se emplean dos compuertas NAND adicionales para poder implementar
+  enable. La distribución de entradas en cada compuerta se realiza de
+  la siguiente manera:
+  1. Entrada S y EN
+  2. EN y entrada R
+  
 *** Tabla de Verdad                                                    :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.45
 :END:
 
-| $EN$ | $S$ | $R$ | $Q(t+1)$ | Estado    |
-|------+-----+-----+----------+-----------|
-|  0   |  X  |  X  | [?]      | [nombre]  |
-|  1   |  0  |  0  | [?]      | [nombre]  |
-|  1   |  0  |  1  | [?]      | [nombre]  |
-|  1   |  1  |  0  | [?]      | [nombre]  |
-|  1   |  1  |  1  | [?]      | Prohibido |
+| $EN$ | $S$ | $R$ | $Q(t+1)$ | Estado      |
+|------+-----+-----+----------+-------------|
+|    0 |   X |   X |     Q(t) | Sin cambios |
+|    1 |   0 |   0 |     Q(t) | Sin cambios |
+|    1 |   0 |   1 |        0 | Reset       |
+|    1 |   1 |   0 |        1 | Set         |
+|    1 |   1 |   1 |        1 | Prohibido   |
 
 ** Latch D con Habilitación
 # INSTRUCCIÓN: Explique el Latch D derivado del Latch SR con habilitación.
@@ -205,11 +220,26 @@
 :BEAMER_col: 0.55
 :END:
 
+El latch D es un circuito secuencial que, a diferencia del SR, posee
+una entrada para las señales, llamada D, y otra para la habilitación,
+cuyo nombre es enable (EN). Además, este latch emplea las siguientes
+combinaciones de compuertas lógicas:
+- NAND si las entradas están conectadas a compuertas NAND
+- AND si las entradas están conectadas a compuertas NOR
+
+Adicionalmente, la entrada D se conecta a una compuerta NOT, que a su
+vez está conectada a una de las compuertas NAND o AND. Debido a esto,
+el comportamiento de este latch es similar a tener una entrada S y
+otra R', lo cual elimina la posibilidad de que haya un estado prohibido.
+
 - Se obtiene haciendo $R = \overline{D}$ en el Latch SR con EN
 - Elimina el estado \textcolor{red}{prohibido}
-- $EN=1$ (transparente): $Q(t+1)=[?]$
-- $EN=0$ (retención):    $Q(t+1)=[?]$
-- [¿Por qué se dice que es «transparente» cuando EN=1?]
+- $EN=1$ (transparente): $Q(t+1)=D$
+- $EN=0$ (retención):    $Q(t+1)=Q(t)$
+- Cuando EN = 1, cualquier cambio que se realice en la entrada D se
+  reflejará automáticamente en la salida Q. Este efecto se conoce como
+  transparencia, puesto que el estado de Q siempre es equivalente al
+  de la entrada D cuando el circuito se encuentra habilitado.
 
 *** Tabla de Verdad                                                    :BMCOL:
 :PROPERTIES:
@@ -218,9 +248,9 @@
 
 | $EN$ | $D$ | $Q(t+1)$ | Estado      |
 |------+-----+----------+-------------|
-|  0   |  X  | [?]      | [nombre]    |
-|  1   |  0  | [?]      | [nombre]    |
-|  1   |  1  | [?]      | [nombre]    |
+|    0 |   X |     Q(t) | Sin cambios |
+|    1 |   0 |        0 | Reset       |
+|    1 |   1 |        1 | Set         |
 
 * Flip-Flop D
 
@@ -238,10 +268,10 @@
 :BEAMER_col: 0.55
 :END:
 
-- *Latch D:* activo mientras $EN=[?]$
-- *FF D:*    activo solo en el [flanco de subida ↑ / bajada ↓] de CLK
-- Ventaja: evita [race conditions / glitches] porque la ventana de
-  captura es [infinitamente corta / larga]
+- *Latch D:* activo mientras $EN=1$
+- *FF D:*    activo solo en el flanco de subida ↑ de CLK
+- Ventaja: evita race conditions porque la ventana de
+  captura es infinitamente corta.
 - Ecuación:
   \[Q(t+1) = D \quad \text{(en el flanco de CLK)}\]
 
@@ -252,8 +282,8 @@
 
 | $D$ | $Q(t+1)$ | Estado   |
 |-----+----------+----------|
-|  0  | [?]      | [nombre] |
-|  1  | [?]      | [nombre] |
+|   0 | 0        | reset    |
+|   1 | 1        | set      |
 
 ** El Circuito Integrado 74LS74
 # INSTRUCCIÓN: Describa el CI 74LS74, que es un FF D real de la familia TTL.
@@ -265,21 +295,31 @@
 #     voltaje/corriente relevante del datasheet.
 #   - Si desea, incluya una imagen del pinout descargada bajo licencia libre.
 
-*** Descripción del CI                                                 :BMCOL:
+* Descripción del CI                                                 :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.55
 :END:
 
-- Contiene [?] Flip-Flops D en un encapsulado DIP-14
+- Contiene [2] Flip-Flops D en un encapsulado DIP-14, los cuales
+  pueden ser usados individualmente. Este circuito por sí solo puede
+  almacena dos bits, uno por cada flip-flop.
 - Pines de cada FF:
-  - *D*:   [función]
-  - *CLK*: disparo por [flanco ↑ / ↓]
-  - *PRE*: [función, activo en alto/bajo]
-  - *CLR*: [función, activo en alto/bajo]
-  - *Q* y $\overline{Q}$: [salidas]
-- PRE y CLR son [síncronos / asíncronos]: actúan [con / sin] el reloj
+  - D:   [Es la entrada a cada flip-flop que representa el dato principal a almacenar.]
+  - CLK: disparo por [flanco ↑ (de subida).]
+  - PRE: [activo en bajo, si CLR está en alto: ignora la entrada D y se tiene como salida
+    Q un 1 lógico.]
+  - CLR: [activo en bajo, si PRE está en alto: ignora la entrada D y
+    la salida Q queda en bajo.]
+  - Q y $\overline{Q}$: [son las salidas del flip-flop que reflejan
+    el bit almacenado y su complemento.]
+  - PRE y CLR son [asíncronos]: actúan [sin] el reloj
+- Es un circuito de la familia lógica TTL, contiene 14 pines, donde
+  uno corresponde al VCC que se debe conectar a la alimentación de
+  +5V.
+- La corriente máxima que se puede extraer de un pin de salida es de
+  tan solo 0,4 mA cuando el pin está en alto o de 8 mA cuando está en bajo.
 
-*** Tabla de Función                                                   :BMCOL:
+* Tabla de Función                                                   :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.45
 :END:
@@ -287,12 +327,11 @@
 # Complete con los valores del datasheet del 74LS74
 | PRE | CLR | CLK | $D$ | $Q$  | $\overline{Q}$ |
 |-----+-----+-----+-----+------+----------------|
-|  0  |  1  |  X  |  X  | [?]  | [?]            |
-|  1  |  0  |  X  |  X  | [?]  | [?]            |
-|  0  |  0  |  X  |  X  | [?]  | [?]            |
-|  1  |  1  |  ↑  |  0  | [?]  | [?]            |
-|  1  |  1  |  ↑  |  1  | [?]  | [?]            |
-
+|  0  |  1  |  X  |  X  | [1]  | [0]            |
+|  1  |  0  |  X  |  X  | [0]  | [1]            |
+|  0  |  0  |  X  |  X  | [1]  | [1]            |
+|  1  |  1  |  ↑  |  0  | [0]  | [1]            |
+|  1  |  1  |  ↑  |  1  | [1]  | [0]            |
 * Conclusiones
 
 ** Lo que aprendimos y hacia dónde seguir
@@ -312,9 +351,11 @@ Latch D $\;\longrightarrow\;$ Flip-Flop D $\;\longrightarrow\;$ 74LS74
 #+end_center
 
 *Conclusión del grupo:*
-- [Escriba aquí en 2–3 frases qué concepto les pareció más importante
-  y por qué la distinción Latch vs. Flip-Flop es relevante para un
-  diseñador de sistemas digitales.]
+- Primero se estudió el Latch SR, el cual permite almacenar un bit de información sin depender de una señal de reloj, por lo que se considera un circuito asíncrono. Posteriormente, se añadió una entrada EN (Enable) que permite habilitar o bloquear la modificación del valor lógico almacenado.
+
+Más adelante, las entradas S y R se reemplazan por una única entrada D (Data) mediante una configuración lógica que evita los estados no válidos del latch SR, obteniéndose así un Latch D con habilitación.
+
+Finalmente, se introduce una señal de reloj CLK, dando lugar al Flip-Flop D (FF D). Este corresponde a un circuito secuencial síncrono, ya que actualiza su salida únicamente cuando ocurre un flanco específico de la señal de reloj (comúnmente el flanco de subida). En ese instante, el valor presente en la entrada D es transferido y almacenado en la salida.
 
 
 * Referencias
