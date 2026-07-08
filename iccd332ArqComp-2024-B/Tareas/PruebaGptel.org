@@ -1,0 +1,8 @@
+En este archivo vamos a hacer pruebas del Gptel de Copilot. Con el
+nuevo cambio que se hizo en el archivo de configuracion init.el, en la
+seccion 14.
+
+Se modifico la parte del gptel y se guardo la version anterior en un
+.txt, por si ocurre algún error con las modificaciones hechas con la
+ayuda de Gemini AI.
+

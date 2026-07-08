@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<title>Tutorial: Presentaciones Reveal.js desde Emacs</title>
+<meta name="author" content="Lenin G. Falconí"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/dracula.css" id="theme"/>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Tutorial: Presentaciones Reveal.js desde Emacs</h1><p class="subtitle"></p>
+<h2 class="author">Lenin G. Falconí</h2><h2 class="date">Periodo 2026-A</h2>
+</section>
+
+<section>
+<section id="slide-orge99e008">
+<h2 id="orge99e008">Introducción</h2>
+<div class="outline-text-2" id="text-orge99e008">
+</div>
+</section>
+<section id="slide-orgcb0c2d4">
+<h3 id="orgcb0c2d4"><i class="fas fa-desktop"></i> ¿Qué es Reveal.js?</h3>
+<ul>
+<li class="fragment appear">Es un framework HTML para crear presentaciones interactivas.</li>
+<li class="fragment appear">Se ejecuta en el navegador: no requiere LaTeX ni compilación a PDF.</li>
+<li class="fragment appear">Desde Emacs + Org-mode, se exporta con un solo comando.</li>
+<li class="fragment appear">El paquete <code>ox-reveal</code> traduce tu archivo <code>.org</code> a <code>.html</code> listo para mostrar.</li>
+
+</ul>
+
+</section>
+<section id="slide-org66b3da5">
+<h3 id="org66b3da5"><i class="fas fa-check-circle"></i> Requisitos</h3>
+<ul>
+<li class="fragment appear">El paquete <code>ox-reveal</code> instalado en Emacs (ya incluido en el <code>init.el</code> del curso).</li>
+<li class="fragment appear">Conexión a internet (Reveal.js se carga desde CDN — sin instalar nada localmente).</li>
+<li class="fragment appear">Nada más: ni LaTeX, ni Pandoc, ni compiladores extra.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org196d0e0">
+<h2 id="org196d0e0">El Encabezado del Archivo</h2>
+<div class="outline-text-2" id="text-org196d0e0">
+</div>
+</section>
+<section id="slide-orge53fc8a">
+<h3 id="orge53fc8a"><i class="fas fa-code"></i> Encabezado mínimo</h3>
+<p>
+Este es el bloque que debe ir al inicio de todo archivo <code>.org</code> para reveal:
+</p>
+
+<pre class="example" id="org2f478c7">
+#+OPTIONS: num:nil toc:nil timestamp:nil
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_THEME: dracula
+#+REVEAL_TRANS: slide
+#+REVEAL_INIT_OPTIONS: width:1200, height:900, margin: 0.1
+
+#+TITLE: Mi Presentación
+#+AUTHOR: Tu Nombre
+#+DATE: 2026
+#+LANGUAGE: es
+</pre>
+
+</section>
+<section id="slide-org0a23049">
+<h3 id="org0a23049"><i class="fas fa-cogs"></i> Opciones de encabezado</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Opción</th>
+<th scope="col" class="org-left">Descripción</th>
+<th scope="col" class="org-left">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>REVEAL_ROOT</code></td>
+<td class="org-left">URL o ruta local de reveal.js</td>
+<td class="org-left">CDN o <code>./reveal.js</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>REVEAL_THEME</code></td>
+<td class="org-left">Tema visual</td>
+<td class="org-left"><code>black</code>, <code>white</code>, <code>league</code>, <code>sky</code>, <code>beige</code>, <code>simple</code>, <code>serif</code>, <code>blood</code>, <code>night</code>, <code>moon</code>, <code>solarized</code>, <code>dracula</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>REVEAL_TRANS</code></td>
+<td class="org-left">Transición entre slides</td>
+<td class="org-left"><code>slide</code>, <code>convex</code>, <code>concave</code>, <code>zoom</code>, <code>none</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>REVEAL_PLUGINS</code></td>
+<td class="org-left">Plugins adicionales (reemplaza defaults: markdown, zoom, notes)</td>
+<td class="org-left"><code>(math)</code> — pero MathJax ya viene por defecto, no hace falta</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>REVEAL_INIT_OPTIONS</code></td>
+<td class="org-left">Configuración de reveal</td>
+<td class="org-left">tamaño, márgenes, escala</td>
+</tr>
+</tbody>
+</table>
+
+</section>
+<section id="slide-org33c0f2c">
+<h3 id="org33c0f2c"><i class="fas fa-calculator"></i> Matemáticas con MathJax</h3>
+<p>
+MathJax se carga automáticamente — no necesitás agregar nada al encabezado.
+Las ecuaciones se escriben con notación LaTeX estándar de Org-mode:
+</p>
+<ul>
+<li>Inline: <code>\(E = mc^2\)</code> produce \(E = mc^2\)</li>
+<li>Display: <code>\[ ... \]</code> centra la ecuación en su propia línea</li>
+<li>Más ejemplos en la sección de matemáticas.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orga63995a">
+<h2 id="orga63995a">Estructura de Diapositivas</h2>
+<div class="outline-text-2" id="text-orga63995a">
+</div>
+</section>
+<section id="slide-orgb05a0cb">
+<h3 id="orgb05a0cb"><i class="fas fa-layer-group"></i> Slides y secciones</h3>
+<ul>
+<li class="fragment appear">Un <code>*</code> (nivel 1) crea una <b>sección</b> (slide horizontal).</li>
+<li class="fragment appear">Un <code>**</code> (nivel 2) crea una <b>diapositiva</b> dentro de la sección.</li>
+<li class="fragment appear">Las secciones generan títulos visibles en la presentación.</li>
+<li class="fragment appear">Navegación: flechas ← → entre slides, ↑ ↓ entre secciones.</li>
+
+</ul>
+
+<pre class="example" id="org90242c5">
+ * Sección 1
+ ** Diapositiva 1
+ Contenido aquí...
+
+ ** Diapositiva 2
+ Más contenido...
+ * Sección 2
+ ** Diapositiva 3
+</pre>
+
+
+</section>
+<section id="slide-org6d074bc">
+<h3 id="org6d074bc"><i class="fas fa-list-ul"></i> Listas y viñetas</h3>
+<p>
+Simplemente usá la sintaxis normal de Org-mode:
+</p>
+
+<pre class="example" id="org59ef5fb">
+ ** Título de la diapositiva
+ - Elemento 1
+ - Elemento 2
+   - Sub-elemento anidado
+ - Elemento 3
+</pre>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org8bc26be">
+<h2 id="org8bc26be">Fragmentos: Revelar por Partes</h2>
+<div class="outline-text-2" id="text-org8bc26be">
+</div>
+</section>
+<section id="slide-org8ba8a1e">
+<h3 id="org8ba8a1e"><i class="fas fa-puzzle-piece"></i> Fragmentos</h3>
+<ul>
+<li class="fragment appear">Usá <code>#+ATTR_REVEAL: :frag (appear)</code> al inicio de una diapositiva.</li>
+<li class="fragment appear">Cada ítem de la lista aparece al presionar →.</li>
+<li class="fragment appear">Este mismo slide usa fragmentos: ¿viste cómo aparecen uno por uno?</li>
+<li class="fragment appear">Muy útil para explicar paso a paso.</li>
+
+</ul>
+
+</section>
+<section id="slide-org619b70e">
+<h3 id="org619b70e"><i class="fas fa-puzzle-piece"></i> Tipos de fragmentos</h3>
+<ul>
+<li class="fragment fade-in"><code>appear</code> — aparece súbitamente</li>
+<li class="fragment fade-in"><code>fade-in</code> — aparece con desvanecimiento (este es <code>fade-in</code>)</li>
+<li class="fragment fade-in"><code>fade-out</code> — se desvanece</li>
+<li class="fragment fade-in"><code>highlight-red</code> — resalta en rojo</li>
+<li class="fragment fade-in"><code>grow</code> — crece desde el centro</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org1d7b055">
+<h2 id="org1d7b055">Imágenes y Columnas</h2>
+<div class="outline-text-2" id="text-org1d7b055">
+</div>
+</section>
+<section id="slide-org2816084">
+<h3 id="org2816084"><i class="fas fa-image"></i> Insertar una imagen</h3>
+<p>
+Para una imagen centrada con ancho definido:
+</p>
+
+<pre class="example" id="orgffa6054">
+#+ATTR_HTML: :width 60% :align center
+[[./figuras/mi-imagen.png]]
+</pre>
+
+<ul>
+<li><code>:width</code> controla el tamaño (porcentaje o píxeles).</li>
+<li><code>:align</code> controla la posición (<code>center</code>, <code>left</code>, <code>right</code>).</li>
+<li>La imagen puede ser local o URL remota.</li>
+
+</ul>
+
+</section>
+<section id="slide-org749ba3c">
+<h3 id="org749ba3c"><i class="fas fa-columns"></i> Texto a la izquierda, imagen a la derecha</h3>
+<p>
+Para dos columnas usamos HTML con flexbox (más fiable que float en reveal.js):
+</p>
+
+<pre class="example" id="org6c31a22">
+#+begin_export html
+&lt;div style="display:flex; align-items:center; gap:30px;"&gt;
+&lt;div style="flex:1;"&gt;
+#+end_export
+- Acá va el texto.
+- Explicación de la imagen.
+- Notas adicionales.
+#+begin_export html
+&lt;/div&gt;
+&lt;div style="flex:0 0 45%;"&gt;
+#+end_export
+[[./figuras/emacsJoke.jpg]]
+#+begin_export html
+&lt;/div&gt;
+&lt;/div&gt;
+#+end_export
+</pre>
+
+</section>
+<section id="slide-org840f0c8">
+<h3 id="org840f0c8"><i class="fas fa-columns"></i> Ejemplo real: Emacs</h3>
+<div style="display:flex; align-items:center; gap:30px;">
+<div style="flex:1;">
+<ul>
+<li><b>Emacs</b>: el editor que lo hace todo.</li>
+<li>Imagen a la izquierda, texto a la derecha.</li>
+<li>Acá usamos flexbox, no float.</li>
+
+</ul>
+</div>
+<div style="flex:0 0 45%;">
+
+<div id="orgf9e30cc" class="figure">
+<p><img src="../../images/emacsJoke.jpg" alt="emacsJoke.jpg" />
+</p>
+</div>
+</div>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org8e21b03">
+<h2 id="org8e21b03">Código Fuente en Diapositivas</h2>
+<div class="outline-text-2" id="text-org8e21b03">
+</div>
+</section>
+<section id="slide-org8578014">
+<h3 id="org8578014"><i class="fas fa-terminal"></i> Bloques de código</h3>
+<p>
+Los bloques <code>#+begin_src</code> de Org-mode se exportan con resaltado de sintaxis:
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-python"   ><code trim>import numpy as np
+
+def greet(name):
+    """Saluda cordialmente."""
+    return f"Hola, {name}!"
+
+print(greet("Arquitectura de Computadores"))
+</code></pre>
+</div>
+
+<pre class="example">
+Hola, Arquitectura de Computadores!
+</pre>
+
+
+<p>
+<b>Salida:</b>
+</p>
+<pre class="example" id="orgf64f96f">
+Hola, Arquitectura de Computadores!
+</pre>
+
+</section>
+<section id="slide-org2ec3597">
+<h3 id="org2ec3597"><i class="fas fa-terminal"></i> Lenguajes soportados</h3>
+<ul>
+<li class="fragment appear">Python (<code>python</code>)</li>
+<li class="fragment appear">C (<code>c</code>)</li>
+<li class="fragment appear">Java (<code>java</code>)</li>
+<li class="fragment appear">Ensamblador (<code>asm</code>)</li>
+<li class="fragment appear">Shell (<code>shell</code>)</li>
+<li class="fragment appear">Emacs Lisp (<code>emacs-lisp</code>)</li>
+<li class="fragment appear">y muchos más que reconoce <code>highlight.js</code></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org5cdc77d">
+<h2 id="org5cdc77d">Matemáticas con MathJax</h2>
+<div class="outline-text-2" id="text-org5cdc77d">
+</div>
+</section>
+<section id="slide-orgfb51b82">
+<h3 id="orgfb51b82"><i class="fas fa-superscript"></i> Ecuaciones inline y display</h3>
+<p>
+MathJax se carga automáticamente — no requiere configuración adicional:
+</p>
+
+<ul>
+<li><b>Inline</b>: <code>\(a^2 + b^2 = c^2\)</code> produce \(a^2 + b^2 = c^2\)</li>
+<li><b>Display</b>: <code>\[ ... \]</code> centra la ecuación en su propia línea:</li>
+
+</ul>
+
+<p>
+\[
+\sum_{i=0}^{n} x_i = x_0 + x_1 + \cdots + x_n
+\]
+</p>
+
+</section>
+<section id="slide-orgbae26f5">
+<h3 id="orgbae26f5"><i class="fas fa-superscript"></i> Ecuaciones del curso</h3>
+<p>
+Ecuación de rendimiento del computador:
+</p>
+
+<p>
+\[
+\text{Tiempo de CPU} = \text{Ciclos de reloj} \times \text{Duración del ciclo}
+\]
+</p>
+
+<p>
+Ley de Amdahl:
+</p>
+
+<p>
+\[
+S = \frac{1}{(1 - f) + \frac{f}{n}}
+\]
+</p>
+
+</section>
+<section id="slide-org988331d">
+<h3 id="org988331d"><i class="fas fa-superscript"></i> Fracciones, integrales y matrices</h3>
+<p>
+Fracción:
+</p>
+
+<p>
+\[
+\frac{n!}{k!(n-k)!}
+\]
+</p>
+
+<p>
+Integral:
+</p>
+
+<p>
+\[
+\int_{0}^{\infty} e^{-x} \, dx = 1
+\]
+</p>
+
+<p>
+Matriz:
+</p>
+
+
+<div>
+\begin{pmatrix}
+a_{11} & a_{12} \\
+a_{21} & a_{22}
+\end{pmatrix}
+
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgb61dc35">
+<h2 id="orgb61dc35">Iconos y Formato Especial</h2>
+<div class="outline-text-2" id="text-orgb61dc35">
+</div>
+</section>
+<section id="slide-orgb7d8b17">
+<h3 id="orgb7d8b17"><i class="fas fa-icons"></i> Iconos Font Awesome</h3>
+<p>
+Con el CSS de Font Awesome cargado en el encabezado:
+</p>
+
+<pre class="example" id="org696833e">
+#+REVEAL_EXTRA_CSS: https://use.fontawesome.com/releases/v5.15.4/css/all.css
+</pre>
+
+<p>
+Insertás iconos así:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Código</th>
+<th scope="col" class="org-left">Icono</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>@@html:&lt;i class="fas fa-microchip"&gt;&lt;/i&gt;@@</code></td>
+<td class="org-left"><i class="fas fa-microchip"></i> Arquitectura</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>@@html:&lt;i class="fas fa-code"&gt;&lt;/i&gt;@@</code></td>
+<td class="org-left"><i class="fas fa-code"></i> Código</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>@@html:&lt;i class="fas fa-calculator"&gt;&lt;/i&gt;@@</code></td>
+<td class="org-left"><i class="fas fa-calculator"></i> Matemáticas</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>@@html:&lt;i class="fas fa-terminal"&gt;&lt;/i&gt;@@</code></td>
+<td class="org-left"><i class="fas fa-terminal"></i> Terminal</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+[Lista completa de iconos](<a href="https://fontawesome.com/v5/search?m=free">https://fontawesome.com/v5/search?m=free</a>)
+</p>
+
+</section>
+<section id="slide-org320a3e7">
+<h3 id="org320a3e7"><i class="fas fa-quote-right"></i> Citas textuales</h3>
+<p>
+Usando el bloque <code>quote</code> de Org:
+</p>
+
+<blockquote >
+<p>
+Cualquier tecnología suficientemente avanzada es indistinguible de la magia.
+</p>
+</blockquote>
+<p>
+— Arthur C. Clarke
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org7894352">
+<h2 id="org7894352">Exportar a HTML</h2>
+<div class="outline-text-2" id="text-org7894352">
+</div>
+</section>
+<section id="slide-orga50b247">
+<h3 id="orga50b247"><i class="fas fa-file-export"></i> Cómo exportar</h3>
+<p>
+Para generar el archivo <code>.html</code> desde Emacs:
+</p>
+
+<ol>
+<li>Abrí tu archivo <code>.org</code>.</li>
+<li>Ejecutá: <code>C-c C-e R B</code>
+<ul>
+<li><code>C-c C-e</code> → menú de exportación.</li>
+<li><code>R</code> → Reveal.js (R mayúscula).</li>
+<li><code>B</code> → exportar a archivo y abrir en navegador.</li>
+
+</ul></li>
+<li>Alternativa por comando: <code>M-x org-reveal-export-to-html-and-browse</code></li>
+<li>El <code>.html</code> se genera en la misma carpeta.</li>
+
+</ol>
+
+</section>
+<section id="slide-orgf709bea">
+<h3 id="orgf709bea"><i class="fas fa-exclamation-triangle"></i> Si el navegador no abre</h3>
+<ul>
+<li class="fragment appear">En <b>WSL</b> (Windows): verificá que <code>wslview</code> esté instalado (<code>sudo apt install wslu</code>).</li>
+<li class="fragment appear"><p>
+Alternativa WSL: usá <code>explorer.exe</code> como browser:
+</p>
+<pre class="example" id="org573633a">
+  #+begin_src emacs-lisp
+  (setq browse-url-generic-program "explorer.exe")
+  (setq browse-url-browser-function 'browse-url-generic)
+  #+end_src
+</pre></li>
+<li class="fragment appear">En <b>Linux</b> nativo: <code>xdg-open</code> viene por defecto y debería funcionar.</li>
+<li class="fragment appear">Si nada funciona, abrí el <code>.html</code> manualmente desde el explorador de archivos.</li>
+
+</ul>
+
+</section>
+<section id="slide-orge460050">
+<h3 id="orge460050"><i class="fas fa-keyboard"></i> Atajos de exportación</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Atajo</th>
+<th scope="col" class="org-left">Comando equivalente</th>
+<th scope="col" class="org-left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>C-c C-e R B</code></td>
+<td class="org-left"><code>org-reveal-export-to-html-and-browse</code></td>
+<td class="org-left">Exportar y abrir en navegador</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>C-c C-e R R</code></td>
+<td class="org-left"><code>org-reveal-export-to-html</code></td>
+<td class="org-left">Exportar a <code>.html</code></td>
+</tr>
+</tbody>
+</table>
+
+</section>
+</section>
+<section>
+<section id="slide-org733498b">
+<h2 id="org733498b">Referencia</h2>
+<div class="outline-text-2" id="text-org733498b">
+</div>
+</section>
+<section id="slide-orgca7ad67">
+<h3 id="orgca7ad67"><i class="fas fa-book"></i> Ejemplo completo</h3>
+<p>
+Consultá la presentación de bienvenida del curso como referencia real de todo lo cubierto:
+</p>
+
+<ul>
+<li>Archivo: <code>welcome-reveal.org</code></li>
+<li>Contiene: fragmentos, imágenes, columnas, íconos, tablas, citas.</li>
+
+</ul>
+
+</section>
+<section id="slide-org8a5f5d3">
+<h3 id="org8a5f5d3"><i class="fas fa-globe"></i> Recursos adicionales</h3>
+<ul>
+<li>[ox-reveal en GitHub](<a href="https://github.com/yjwen/org-reveal">https://github.com/yjwen/org-reveal</a>)</li>
+<li>[Documentación de reveal.js](<a href="https://revealjs.com/">https://revealjs.com/</a>)</li>
+<li>[Font Awesome — lista de iconos](<a href="https://fontawesome.com/v5/search?m=free">https://fontawesome.com/v5/search?m=free</a>)</li>
+<li>[MathJax — sintaxis LaTeX](<a href="https://docs.mathjax.org/en/latest/">https://docs.mathjax.org/en/latest/</a>)</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+width:1200, height:900, margin: 0.1, minScale:0.2, maxScale:1.2,
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+
+});
+
+</script>
+</body>
+</html>
