@@ -1,98 +1,103 @@
-#+options: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
-#+options: author:t broken-links:nil c:nil creator:nil
-#+options: d:(not "LOGBOOK") date:t e:t email:nil expand-links:t f:t
-#+options: inline:t num:t p:nil pri:nil prop:nil stat:t tags:t
-#+options: tasks:t tex:t timestamp:t title:t toc:nil todo:t |:t
-#+title: Taller Script Python
-#+date: 2026-07-08
-#+author: Jami Tonato Mateo Israel
-#+email: mateo.jami@epn.edu.ec
-#+language: Español
-#+select_tags: export
-#+exclude_tags: noexport
-#+creator: Emacs 27.1 (Org mode 9.7.5)
-#+cite_export: biblatex
+% Created 2026-07-08 Wed 23:50
+% Intended LaTeX compiler: pdflatex
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
 
-#+latex_class: article
-#+latex_class_options:
-#+latex_header:
-#+latex_header_extra:
-#+description:
-#+keywords:
-#+subtitle:
-#+latex_footnote_command: \footnote{%s%s}
-#+latex_engraved_theme:
-#+latex_compiler: pdflatex
+\usepackage{fancyhdr}
+\usepackage[top=25mm, left=25mm, right=25mm]{geometry}
+\usepackage{longtable}
+\fancyhead[R]{}
+\setlength\headheight{43.0pt}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, ]{babel}
+\usepackage[backend=biber]{biblatex}
 
-#+latex_header: \usepackage{fancyhdr}
-#+latex_header: \usepackage[top=25mm, left=25mm, right=25mm]{geometry}
-#+latex_header: \usepackage{longtable}
-#+latex_header: \fancyhead[R]{}
-#+latex_header: \setlength\headheight{43.0pt}
+\usepackage{dirtree}
+\author{Jami Tonato Mateo Israel}
+\date{2026-07-08}
+\title{Taller Script Python}
+\hypersetup{
+ pdfauthor={Jami Tonato Mateo Israel},
+ pdftitle={Taller Script Python},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.7.5)}, 
+ pdflang={Español}}
+\begin{document}
 
-#+LATEX_HEADER: \usepackage[T1]{fontenc}
-#+LATEX_HEADER: \usepackage[utf8]{inputenc}
-#+LATEX_HEADER: \usepackage[spanish]{babel}
-#+LATEX_HEADER: \usepackage[backend=biber,style=ieee]{biblatex}
-
-
-
-#+begin_export latex
+\maketitle
 \fancyhead[C]{\includegraphics[scale=0.05]{../images/logoEPN.jpg}\\
 ESCUELA POLITÉCNICA NACIONAL\\FACULTAD DE INGENIERÍA DE SISTEMAS\\
 ARQUITECTURA DE COMPUTADORES}
 \thispagestyle{fancy}
-#+end_export
 
 
-* Objetivos
-- Desarrollar un script de Python con paradigma estructurado
+\section{Objetivos}
+\label{sec:orgf4f2344}
+\begin{itemize}
+\item Desarrollar un script de Python con paradigma estructurado
+\end{itemize}
 
-* Problema
+\section{Problema}
+\label{sec:org5d7bae2}
 Usted es el científico de datos para un sistema de lanzamiento de
 cohetes. Para esto, se le solicita que determine gráficamente el
 alcance del cohete según al menos tres ángulos de entrada, un tiempo
-máximo de vuelo ~t~. Se considera que existe una fuerza de resistencia
+máximo de vuelo \texttt{t}. Se considera que existe una fuerza de resistencia
 al movimiento debido al viento y representada mediante un coeficiente
-~b~. Escribir un programa que permita obtener el alcance del cohete
+\texttt{b}. Escribir un programa que permita obtener el alcance del cohete
 gráficamente, mediante la resolución de ecuaciones diferenciales
-ordinarias. Los parámetros como Velocidad inicial ~V~, coeficiente de
-resistencia ~B~, tiempo máximo ~tmax~ y ángulos de lanzamiento se
+ordinarias. Los parámetros como Velocidad inicial \texttt{V}, coeficiente de
+resistencia \texttt{B}, tiempo máximo \texttt{tmax} y ángulos de lanzamiento se
 ingresan desde la línea de comando. Siga las instrucciones
-proporcionadas en  la Sección [[Instrucciones]] para
+proporcionadas en  la Sección \ref{sec:orgeb4a700} para
 completar el taller.
 
-* Instrucciones
+\section{Instrucciones}
+\label{sec:orgeb4a700}
 
-1. Obtener las expresiones matemáticas para las ecuaciones
-   diferenciales ordinarias. Vea la Sección [[Desarrollo Matemático]]
-2. Investigar cómo funciona la librería ~solve_ivp~ del paquete
-   ~scipy.integrate~
-3. Investigar cómo funciona la librearía ~argparse~ para controlar el
-   ingreso de valores y opciones desde la línea de comandos.
-4. Cree una carpeta con los archivos del proyecto denominada ~cohete~.
-5. Dentro de la carpeta cree un archivo ~main.py~ con el código
-   proporcionado en la Sección [[Código Inicial Python]]
-6. Reorganizar el código proporcionado de ejemplo para conformar un
-   proyecto de código estructurado. Las funciones estarán dentro de
-   una carpeta ~utils~ en el archivo ~projectile_functions.py~. El
-   código principal se coloca en el archivo ~main.py~ conforme al
-   siguiente esquema de archivos.
-   1. Con YASnippet habilitado escriba ~imp~ seguido de ~C-TAB~ para
-      escribir ~import~
-   2. Escriba ~main~ seguido de la secuencia
-      de comandos ~C-TAB~. Esto genera una función llamada ~main~
-   3. escriba ~ifm~ seguido de la secuencia ~C-TAB~ para generar la
-      condición de ejecución del programa Python como programa
-      principal
-   4. Use ~fd~ seguido de ~C-TAB~ para escribir una función con
-      /docstrings/ y use ~r~ seguido de ~C-TAB~ para escribir ~return~
-   5. Utilice ~pars~ ~C-TAB~ para crear un parser y ~args~ ~C-TAB~
-      para crear un argumento de entrada del programa. Importe la
-      librería ~argparse~
+\begin{enumerate}
+\item Obtener las expresiones matemáticas para las ecuaciones
+diferenciales ordinarias. Vea la Sección \ref{sec:org8f538c6}
+\item Investigar cómo funciona la librería \texttt{solve\_ivp} del paquete
+\texttt{scipy.integrate}
+\item Investigar cómo funciona la librearía \texttt{argparse} para controlar el
+ingreso de valores y opciones desde la línea de comandos.
+\item Cree una carpeta con los archivos del proyecto denominada \texttt{cohete}.
+\item Dentro de la carpeta cree un archivo \texttt{main.py} con el código
+proporcionado en la Sección \ref{sec:orgff1aa88}
+\item Reorganizar el código proporcionado de ejemplo para conformar un
+proyecto de código estructurado. Las funciones estarán dentro de
+una carpeta \texttt{utils} en el archivo \texttt{projectile\_functions.py}. El
+código principal se coloca en el archivo \texttt{main.py} conforme al
+siguiente esquema de archivos.
+\begin{enumerate}
+\item Con YASnippet habilitado escriba \texttt{imp} seguido de \texttt{C-TAB} para
+escribir \texttt{import}
+\item Escriba \texttt{main} seguido de la secuencia
+de comandos \texttt{C-TAB}. Esto genera una función llamada \texttt{main}
+\item escriba \texttt{ifm} seguido de la secuencia \texttt{C-TAB} para generar la
+condición de ejecución del programa Python como programa
+principal
+\item Use \texttt{fd} seguido de \texttt{C-TAB} para escribir una función con
+\emph{docstrings} y use \texttt{r} seguido de \texttt{C-TAB} para escribir \texttt{return}
+\item Utilice \texttt{pars} \texttt{C-TAB} para crear un parser y \texttt{args} \texttt{C-TAB}
+para crear un argumento de entrada del programa. Importe la
+librería \texttt{argparse}
+\end{enumerate}
+\end{enumerate}
 
-#+LATEX_HEADER: \usepackage{dirtree}
-#+begin_export latex
 \dirtree{%
  .1 /. 
  .2 main.py. 
@@ -100,17 +105,21 @@ completar el taller.
  .3 \_\_init\_\_.py. 
  .3 projectile\_functions.py. 
  }
-#+end_export
-* Entregables del taller
-1. Archivo .zip con el archivo ~main.py~ y la librería desarrollada
-   ~projectile_functions.py~ y el gráfico obtenido de una carrera.
-2. Completar en la sección [[]] de este documento una breve
-   descripción de lo que hacen las librerías revisadas en este taller.
-3. Una vez redactado el punto anterior suba el archivo .ORG y el .PDF
-* Recursos
-Puede consultar más información en el siguiente [[https://www.youtube.com/watch?v=b9S_L1AaJNw][vídeo]] y en [[https://github.com/lukepolson/youtube_channel/blob/main/Python%20Metaphysics%20Series/vid22.ipynb][GitHub]]
+\section{Entregables del taller}
+\label{sec:org9568a2f}
+\begin{enumerate}
+\item Archivo .zip con el archivo \texttt{main.py} y la librería desarrollada
+\texttt{projectile\_functions.py} y el gráfico obtenido de una carrera.
+\item Completar en la sección [[]] de este documento una breve
+descripción de lo que hacen las librerías revisadas en este taller.
+\item Una vez redactado el punto anterior suba el archivo .ORG y el .PDF
+\end{enumerate}
+\section{Recursos}
+\label{sec:org3c83a61}
+Puede consultar más información en el siguiente \href{https://www.youtube.com/watch?v=b9S\_L1AaJNw}{vídeo} y en \href{https://github.com/lukepolson/youtube\_channel/blob/main/Python\%20Metaphysics\%20Series/vid22.ipynb}{GitHub}
 
-** Desarrollo Matemático
+\subsection{Desarrollo Matemático}
+\label{sec:org8f538c6}
 
 
 La fuerza de resistencia del viento se puede considerar que es
@@ -124,7 +133,7 @@ determinadas por la ecuación
   \vec{F}_{\text{net}} = \vec{F}_g + \vec{F}_f = -mg\hat{y} - b|\vec{v}|\vec{v}
 \end{equation}
 
-La velocidad está dada por $\vec{v} = \dot{x} \hat{i} + \dot{y} \hat{j}$
+La velocidad está dada por \(\vec{v} = \dot{x} \hat{i} + \dot{y} \hat{j}\)
 
 En consecuencia la Fuerza neta del sistema queda:
 
@@ -140,7 +149,7 @@ Que en forma vectorial se puede escribir como
   \vec{F}_{\text{net}} = \begin{bmatrix} - b\sqrt{\dot{x}^2 + \dot{y}^2}\dot{x} \\ -mg - b\sqrt{\dot{x}^2 + \dot{y}^2}\dot{y} \end{bmatrix}
 \end{equation}
 
-Dado que $\vec{F}_{\text{net}} = m\vec{a} = m\left< \ddot{x}, \ddot{y} \right>$, se tiene
+Dado que \(\vec{F}_{\text{net}} = m\vec{a} = m\left< \ddot{x}, \ddot{y} \right>\), se tiene
 
 \begin{equation}
   \label{}
@@ -159,7 +168,7 @@ De donde se obtienen el par de ecuaciones diferenciales
   \ddot{y} = -g - \frac{b}{m}\sqrt{\dot{x}^2 + \dot{y}^2}\dot{y}
 \end{equation}
 
-Definiendo $x' = x/g$ and $y'=y/g$, se tiene entonces
+Definiendo \(x' = x/g\) and \(y'=y/g\), se tiene entonces
 
 \begin{equation}
   \label{}
@@ -171,7 +180,7 @@ Definiendo $x' = x/g$ and $y'=y/g$, se tiene entonces
    \ddot{y'} = -1 - \frac{bg}{m}\sqrt{\dot{x'}^2 + \dot{y'}^2}\dot{y'}
 \end{equation}
 
-Sea $B \equiv bg/m$, entonces considerando el cambio de notación y
+Sea \(B \equiv bg/m\), entonces considerando el cambio de notación y
 eliminado la ' para simplificar, se propone resolver un sistema de
 ecuaciones de primer orden ODE siguiente:
 
@@ -186,10 +195,11 @@ ecuaciones de primer orden ODE siguiente:
 
 
 
-** Código Inicial Python
+\subsection{Código Inicial Python}
+\label{sec:orgff1aa88}
 
 
-#+begin_src python :session :results output :exports both
+\begin{verbatim}
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot  as plt
@@ -241,13 +251,13 @@ plt.xlabel('$x/g$', fontsize=20)
 plt.ylabel('$y/g$', fontsize=20)
 plt.show()
 
-#+end_src
+\end{verbatim}
 
-#+RESULTS:
+\section{Descripción librerías usadas}
+\label{sec:org9c7a1ba}
 
-* Descripción librerías usadas
-
-** SOLVE_IVP
+\subsection{SOLVE\textsubscript{IVP}}
+\label{sec:orgcc10af8}
 Esta función es parte del módulo scipy.integrate de la librería
  SciPy. Sirve principalmente para resolver problemas de valor inicial
  en sistemas de ecuaciones diferenciales ordinarias.
@@ -255,15 +265,16 @@ Esta función es parte del módulo scipy.integrate de la librería
  trayectoria del cohete paso a paso a través del tiempo.
  Para que funcione le pasamos varios parámetros. Primero la función
  dSdt que contiene nuestro sistema de ecuaciones. También le indicamos
- el tiempo de inicio y fin de la simulación con t_span.
+ el tiempo de inicio y fin de la simulación con t\textsubscript{span}.
  Las condiciones iniciales de posición y velocidad van en el arreglo
- y0. Usamos t_eval para decirle que guarde la posición del cohete en
+ y0. Usamos t\textsubscript{eval} para decirle que guarde la posición del cohete en
  1000 puntos exactos y así la gráfica salga suave.
  Finalmente con args le pasamos el coeficiente de fricción del aire.
 
-Fuente: SciPy Developers. (2024). scipy.integrate.solve_ivp. SciPy Documentation. Recuperado de: https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html
-       
-** ARGPARSE
+Fuente: SciPy Developers. (2024). scipy.integrate.solve\textsubscript{ivp}. SciPy Documentation. Recuperado de: \url{https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve\_ivp.html}
+
+\subsection{ARGPARSE}
+\label{sec:org9da81ee}
 
 Esta es una librería estándar de Python que se usa para crear
  interfaces de línea de comandos. En el proyecto la usamos para no
@@ -271,20 +282,22 @@ Esta es una librería estándar de Python que se usa para crear
  Así podemos ingresar la velocidad o los ángulos directamente desde la
  terminal al ejecutar el script sin modificar el código fuente.
  Usamos ArgumentParser para iniciar el contenedor y agregar una
- descripción del programa. Con add_argument definimos los parámetros
+ descripción del programa. Con add\textsubscript{argument} definimos los parámetros
  que vamos a leer.
  Le pusimos el tipo float para que convierta los números
  automáticamente y marcamos los datos como requeridos.
- También usamos nargs="+" para poder ingresar varios ángulos a la vez y que el programa los guarde como una lista. Al final parse_args recolecta toda esa información para usarla en el código.
+ También usamos nargs="+" para poder ingresar varios ángulos a la vez y que el programa los guarde como una lista. Al final parse\textsubscript{args} recolecta toda esa información para usarla en el código.
 
 Fuente: Python Software Foundation. (2024). argparse. Python
 Documentation. Recuperado de:
-https://docs.python.org/3/library/argparse.html
+\url{https://docs.python.org/3/library/argparse.html}
 
-** NUMPY
+\subsection{NUMPY}
+\label{sec:org60eb01e}
 
 NumPy es una librería clave para cálculos matemáticos en Python. En este laboratorio nos ayuda a optimizar los cálculos trigonométricos y a generar arreglos de tiempo sin tener que escribir bucles manuales que harían más lento el programa.
 
 Usamos np.cos y np.sin para descomponer el vector de la velocidad inicial en los ejes horizontales y verticales. También usamos la constante np.pi para transformar los grados que ingresa el usuario a radianes. La función np.sqrt nos sirvió para calcular la raíz cuadrada y sacar la magnitud de la velocidad para aplicar la fuerza de resistencia del aire. Por último usamos np.linspace para generar un arreglo de 1000 números espaciados de forma uniforme y tener una simulación mucho más fluida.
 
-Fuente: NumPy Developers. (2024). NumPy Reference. NumPy Documentation. Recuperado de: https://numpy.org/doc/stable/reference/
+Fuente: NumPy Developers. (2024). NumPy Reference. NumPy Documentation. Recuperado de: \url{https://numpy.org/doc/stable/reference/}
+\end{document}
